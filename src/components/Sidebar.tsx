@@ -23,9 +23,9 @@ const drawerWidth = 280
 
 const sidebarItems = [
         { text: "Dashboard", icon: Dashboard, route: "/dashboard" },
-        { text: "Customer Onboarding", icon: PersonAdd, route: "/onboarding" },
-        { text: "Customer Management", icon: People, route: "/management" },
-        { text: "Approval", icon: Settings, route: "/approval" },
+        { text: "Account Opening", icon: PersonAdd, route: "/opening" },
+        { text: "Performance", icon: People, route: "/performance" },
+        { text: "User Management", icon: Settings, route: "/management" },
         { text: "Audit Report", icon: Description, route: "/audit" },
 ]
 
