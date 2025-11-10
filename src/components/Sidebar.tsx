@@ -51,7 +51,7 @@ export default function Sidebar() {
                     <Box sx={{ p: 3 }}>
                             <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 4 }}>
                                     <Box mb={3}>
-                                            <img src="/assets/lotusss.png" alt="Lotus Bank" height={40} />
+                                            <img src="/assets/lotuslogowhite.png" alt="Lotus Bank" height={40} />
                                     </Box>
                             </Box>
 
