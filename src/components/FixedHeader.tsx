@@ -2,6 +2,7 @@
 "use client"
 
 import { Box, Typography, IconButton } from "@mui/material"
+import { FiberManualRecord, Chat,  People } from "@mui/icons-material"
 import ChatNotificationIcon from "@/components/icons/ChatNotificationIcon";
 import UserDIcon from "@/components/icons/UserDIcon";
 import { FiberManualRecord, Chat, Description, People } from "@mui/icons-material"
@@ -15,7 +16,7 @@ interface FixedHeaderProps {
 
 export default function FixedHeader({
                                         userName = "Olalekan Babatunde",
-                                        userRole = "Super Admin",
+                                        userRole = "Initiator",
                                         lastLogin = "July 30, 2025 | 12:00PM",
                                         showIcons = true
                                     }: FixedHeaderProps) {
@@ -75,6 +76,8 @@ export default function FixedHeader({
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                 {showIcons && (
                     <>
+                        <IconButton size="small" sx={{ color: "grey.600" }}>
+                            <People />
                         {/* <IconButton size="small" sx={{ color: "grey.600" }}>
                             <Description />
                         </IconButton> */}
@@ -87,6 +90,8 @@ export default function FixedHeader({
                     </>
                 )}
                 <Typography variant="body2">
+                    <Box component="span" sx={{ color: "text.secondary" }}>
+                        {userName} |{" Initiator "}
                     
                     <Box component="span" sx={{color: "#A0AEC0", fontWeight: "small",}}>
                         {userName} | {" "}

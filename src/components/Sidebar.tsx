@@ -30,6 +30,11 @@ import MagnifyingGlassIcon from "@/components/icons/MagnifyingGlassIcon";
 const drawerWidth = 280
 
 const sidebarItems = [
+        { text: "Dashboard", icon: Dashboard, route: "/dashboard" },
+        { text: "Account Opening", icon: PersonAdd, route: "/opening" },
+        { text: "Performance", icon: People, route: "/performance" },
+        { text: "User Management", icon: Settings, route: "/management" },
+        { text: "Audit Report", icon: Description, route: "/audit" },
   { text: "Dashboard", icon: GridIcon, route: "/dashboard" },
   { text: "Account Opening", icon: UserIcon, route: "/account-opening/step-1" },
   { text: "Performance", icon: CircleConnectionIcon, route: "/performance" },
@@ -41,6 +46,27 @@ export default function Sidebar() {
   const navigate = useNavigate()
   const location = useLocation()
 
+        return (
+            <Drawer
+                variant="permanent"
+                sx={{
+                        width: drawerWidth,
+                        flexShrink: 0,
+                        "& .MuiDrawer-paper": {
+                                width: drawerWidth,
+                                boxSizing: "border-box",
+                                bgcolor: "#1C219F",
+                                color: "white",
+                        },
+                }}
+            >
+                    {/* Logo */}
+                    <Box sx={{ p: 3 }}>
+                            <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 4 }}>
+                                    <Box mb={3}>
+                                            <img src="/assets/lotuslogowhite.png" alt="Lotus Bank" height={40} />
+                                    </Box>
+                            </Box>
   return (
     <Drawer
       variant="permanent"

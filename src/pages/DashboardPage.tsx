@@ -179,6 +179,7 @@ export default function CorporateBankingDashboard() {
                 fontFamily: "Manrope, sans-serif",
                 fontWeight: 700,
                 mb: 0.5,
+                  color: 'black'
                 mr: -2,
               }}
             >
