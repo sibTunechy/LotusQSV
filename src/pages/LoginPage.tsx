@@ -9,7 +9,7 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { FitScreen, Visibility, VisibilityOff } from "@mui/icons-material";
 
 const LoginPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,29 +28,29 @@ const LoginPage: React.FC = () => {
   return (
     <Box
       sx={{
-        display: "flex",
-        height: "100vh",
-        width: "100%",
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center",
+          display: "flex",
+          height: "100vh",
+          width: "100vw",
+          backgroundColor: "#fff",   
+          position: "fixed", 
+          top: 0,
+          left: 0,
+          margin: 0,
+          padding: 0,
       }}
     >    
       {/* Left side image */}
       <Box
         sx={{
           flex: 1,
-          height: "100%",
+          alignSelf: "stretch",
           backgroundImage: "url('/assets/loginpng.png')",
           backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "top center",
-          display: "flex",
-          backgroundColor: "#ffffff",
-          pt: 6,
-          }}
-      >
-      </Box>
+          backgroundSize: "100% 103%", // Changed from "cover" to "contain"
+          backgroundPosition: "center", // Center the image
+          backgroundColor: "#fff",
+        }}
+      />
       {/* Right side (form section) */}
       <Box
         sx={{

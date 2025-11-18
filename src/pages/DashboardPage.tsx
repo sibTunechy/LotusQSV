@@ -17,6 +17,8 @@ import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import TrendingUp from "@mui/icons-material/TrendingUp";
 import TrendingDown from "@mui/icons-material/TrendingDown";
+import RotateIcon from "@/components/icons/RotateIcon.tsx";
+import trophyIcon from "/assets/award.png";
 
 import Sidebar, { drawerWidth } from "@/components/Sidebar";
 import FixedHeader from "@/components/FixedHeader";
@@ -27,6 +29,7 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
+  LabelList,
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
@@ -93,7 +96,44 @@ export default function CorporateBankingDashboard() {
     setSelectedFilter(option);
     handleClose();
   };
-
+  const CustomBar = (props: any) => {
+    const [isHovered, setIsHovered] = useState(false);
+    const { x, y, width, height, fill, value } = props;
+  
+    return (
+      <g
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {/* The bar itself */}
+        <rect
+          x={x}
+          y={y}
+          width={width}
+          height={height}
+          fill={fill}
+          rx={20}
+          ry={20}
+          style={{ cursor: "pointer" }}
+        />
+        
+        {/* The label that appears on hover */}
+        {isHovered && (
+          <text
+            x={x + width / 2}
+            y={y - 10}
+            fill="#1C219F"
+            textAnchor="middle"
+            fontSize={13}
+            fontWeight={600}
+            fontFamily="Manrope, sans-serif"
+          >
+            {`${(value / 1000).toFixed(1)}K`}
+          </text>
+        )}
+      </g>
+    );
+  };
   return (
     <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "#F9FAFB" }}>
       {/* Sidebar */}
@@ -125,13 +165,14 @@ export default function CorporateBankingDashboard() {
             justifyContent: "space-between",
             alignItems: "center",
             mb: 2,
-            mt: -6,
+            mt: 2,           
             bgcolor: "white",
             borderRadius: "8px",
             height: "100px",
+            width: "78vw",
           }}
         >
-          <Box>
+          <Box sx={{ml: 2}}>
             <Typography
               variant="h5"
               sx={{
@@ -139,6 +180,7 @@ export default function CorporateBankingDashboard() {
                 fontWeight: 700,
                 mb: 0.5,
                   color: 'black'
+                mr: -2,
               }}
             >
               QuickServe Banking Overview
@@ -164,6 +206,7 @@ export default function CorporateBankingDashboard() {
               borderRadius: "12px",
               px: 3,
               py: 1.5,
+              mr: 2,
               "&:hover": { bgcolor: "#00BFBF" },
             }}
           >
@@ -195,100 +238,99 @@ export default function CorporateBankingDashboard() {
         </Box>
 
         {/* Metrics Section */}
-        <Box
-                     
-                    sx={{ 
-                        display: "flex",
-                        flexWrap: "wrap",
-                        gap: 1,
-                        mb: 3, 
-                        width: "100%",
-                         }}>
-                        {metrics.map((metric) => (
-                            
-                                <Card
-                                    key={metric.title}
-                                    sx={{ 
-                                        cursor: "pointer",
-                                        flex: "1 1 calc(25% - 24px)",
-                                        minWidth: "255px",
-                                        border: "1px transparent solid",
-                                        transition: "all 0.2s", 
-                                        "&:hover": 
-                                        { boxShadow: 4 },
-                                        display: "flex", 
-                                        flexDirection: "column",
-                                        justifyContent: "space-between",
-                                        height: "200px",
-                                        borderRadius: "8px",
-                                        color: "#111827",
-                                     }}
-                                    onClick={() => setSelectedMetric(metric.title)}
-                                >
-                                    <CardContent sx={{ 
-                                        p: 3, 
-                                        flexGrow: 1,
-                                        }}>
-                                        <Box sx={{ 
-                                            display: "flex", justifyContent: "space-between", 
-                                            mb: 2 }}>
-                                            <Typography variant="h7"
-                                                
-                                             sx={{ fontFamily: "Manrope, sans-serif", fontWeight: 500, }}>
-                                                {metric.title}
-                                            </Typography>
-                                            <InfoOutlineIcon sx={{ 
-                                                mr: -3,
-                                                fontSize: 26, 
-                                                color: 
-                                                metric.info === "green" 
-                                                ? "success.main" 
-                                                : metric.info === "blue" 
-                                                ? "info.main" 
-                                                : metric.info === "orange"
-                                                ? "warning.main"
-                                                : "text.secondary",
-                                                pt: 0.3, 
-                                                pr: 2.5 }} />
-                                        </Box>
-                                        <Box sx={{ 
-                                            display: "flex", 
-                                            alignItems: "center", 
-                                            gap: 2, 
-                                            mb: 1,
-                                            color: "#111827",}}>
-                                            <Typography variant="h4" fontWeight="bold">
-                                                {metric.value}
-                                            </Typography>
-                                            <Box
-                                                sx={{
-                                                    bgcolor: metric.status === "positive" ? "rgba(209, 250, 229, 0.9)" : "rgba(254, 226, 226, 0.9)",
-                                                    borderRadius: "20px",
-                                                    px: 1.5,
-                                                    py: 0.2,
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    gap: 0.5,
-                                                    color: metric.status === "positive" ? "success.main" : "error.main",
-                                                }}
-                                            >
-                                                {metric.status === "positive" ? (
-                                                    <TrendingUp sx={{ fontSize: 16 }} />
-                                                ) : (
-                                                    <TrendingDown sx={{ fontSize: 16 }} />
-                                                )}
-                                                <Typography variant="body2" fontWeight="bold" 
-                                                    sx={{color: "inherit", fontSize: "0.9rem"}}>
-                                                    {metric.change}
-                                                </Typography>
-                                            </Box>
-                                        </Box>
-                                        <Typography variant="body2" color="#A0AEC0" sx={{ pt: 1.5 }}>
-                                            {metric.subtext}
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                        ))}
+        <Box                     
+            sx={{ 
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 1,
+                mb: 3, 
+                width: "100%",
+                }}>
+                {metrics.map((metric) => (                    
+                  <Card
+                      key={metric.title}
+                      sx={{ 
+                          cursor: "pointer",
+                          flex: "1 1 calc(25% - 24px)",
+                          minWidth: "255px",
+                          border: "1px transparent solid",
+                          transition: "all 0.2s", 
+                          "&:hover": 
+                          { boxShadow: "none" },
+                          boxShadow: "none",
+                          display: "flex", 
+                          flexDirection: "column",
+                          justifyContent: "space-between",
+                          height: "170px",
+                          borderRadius: "20px",
+                          color: "#111827",
+                      }}
+                      onClick={() => setSelectedMetric(metric.title)}
+                  >
+                      <CardContent sx={{ 
+                          p: 3, 
+                          flexGrow: 1,
+                          }}>
+                          <Box sx={{ 
+                              display: "flex", justifyContent: "space-between", 
+                              mb: 2 }}>
+                              <Typography variant="h7"
+                                  
+                              sx={{ fontFamily: "Manrope, sans-serif", fontWeight: 500, }}>
+                                  {metric.title}
+                              </Typography>
+                              <InfoOutlineIcon sx={{ 
+                                  mr: -3,
+                                  fontSize: 26, 
+                                  color: 
+                                  metric.info === "green" 
+                                  ? "success.main" 
+                                  : metric.info === "blue" 
+                                  ? "info.main" 
+                                  : metric.info === "orange"
+                                  ? "warning.main"
+                                  : "text.secondary",
+                                  pt: 0.3, 
+                                  pr: 2.5 }} />
+                          </Box>
+                          <Box sx={{ 
+                              display: "flex", 
+                              alignItems: "center", 
+                              gap: 2, 
+                              mb: 1,
+                              color: "#111827",}}>
+                              <Typography variant="h4" fontWeight="bold">
+                                  {metric.value}
+                              </Typography>
+                              <Box
+                                  sx={{
+                                      bgcolor: metric.status === "positive" ? "rgba(209, 250, 229, 0.9)" : "rgba(254, 226, 226, 0.9)",
+                                      borderRadius: "20px",
+                                      px: 1.5,
+                                      py: 0.2,
+                                      display: "flex",
+                                      alignItems: "center",
+                                      gap: 0.5,
+                                      color: metric.status === "positive" ? "success.main" : "error.main",
+                                  }}
+                              >
+                                  {metric.status === "positive" ? (
+                                      <TrendingUp sx={{ fontSize: 16 }} />
+                                  ) : (
+                                      <TrendingDown sx={{ fontSize: 16 }} />
+                                  )}
+                                  <Typography variant="body2" fontWeight="bold" 
+                                      sx={{color: "inherit", fontSize: "0.9rem"}}>
+                                      {metric.change}
+                                  </Typography>
+                              </Box>
+                          </Box>
+                          <Typography variant="body2" color="#A0AEC0" sx={{ pt: 1.5 }}>
+                              {metric.subtext}
+                          </Typography>
+                      </CardContent>
+                  </Card>
+                ))}
             </Box>
 
         {/* Chart + Top Officers Section */}
@@ -300,12 +342,12 @@ export default function CorporateBankingDashboard() {
                 p: 3,
                 borderRadius: 3,
                 bgcolor: "#fff",
-                boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
+                boxShadow: "none",
                 height: 520,
               }}
             >
               <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 3 }}>
-                <ShowChartIcon sx={{ color: "#1E3A8A" }} />
+                <RotateIcon sx={{ color: "#1E3A8A" }} />
                 <Typography
                   variant="h6"
                   fontWeight="600"
@@ -318,9 +360,9 @@ export default function CorporateBankingDashboard() {
               <ResponsiveContainer width="100%" height={420}>
                 <BarChart
                   data={accountOpeningData}
-                  margin={{ top: 20, right: 30, left: 0, bottom: 10 }}
+                  margin={{ top: 20, right: 30, left: -30, bottom: 10 }}
+                  
                 >
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
                   <XAxis
                     dataKey="month"
                     tick={{ fill: "#6B7280", fontSize: 13 }}
@@ -346,7 +388,14 @@ export default function CorporateBankingDashboard() {
                     labelStyle={{ fontWeight: 600, color: "#00CECE" }}
                     itemStyle={{ color: "#00CECE", fontWeight: 500 }}
                   />
-                  <Bar dataKey="amount" fill="#1C219F" radius={[20, 20, 0, 0]} barSize={40} />
+                  <Bar 
+                    dataKey="amount" 
+                    fill="#1C219F" 
+                    radius={[20, 20, 0, 0]} 
+                    barSize={40}
+                    shape={<CustomBar/>}
+                  >
+                  </Bar>
                 </BarChart>
               </ResponsiveContainer>
             </Card>
@@ -359,15 +408,24 @@ export default function CorporateBankingDashboard() {
                 p: 3,
                 borderRadius: 3,
                 bgcolor: "#fff",
-                boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
+                boxShadow: "none",
                 height: 520,
               }}
             >
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <EmojiEventsIcon sx={{ color: "#F59E0B" }} />
+                <Box
+                  component="img"
+                  src={trophyIcon}
+                  alt="Trophy Icon"
+                  sx={{
+                    width: 24,        
+                    height: 24,
+                    objectFit: "contain",
+                  }}
+                />
                 <Typography
                   variant="h6"
-                  fontWeight="600"
+                  fontWeight={600}
                   sx={{ fontFamily: "Manrope, sans-serif" }}
                 >
                   Top Performing Officer
@@ -389,7 +447,7 @@ export default function CorporateBankingDashboard() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-between",
-                      bgcolor: "#F9FAFB",
+                      bgcolor: "#FFF",
                       borderRadius: 2,
                       px: 2,
                       py: 2.5,
@@ -404,7 +462,7 @@ export default function CorporateBankingDashboard() {
                     <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                       <Typography
                         variant="h6"
-                        sx={{ color: "#4B5563", fontWeight: 600 }}
+                        sx={{ color: "#4B5563", pl: 2.1, fontWeight: 600, bgcolor: "#F5F6FF", width: "30px", height: "39px", borderRadius: "20px", alignItems: "center", justifyContent: "center", pt: 0.8 }}
                       >
                         {officer.rank}
                       </Typography>

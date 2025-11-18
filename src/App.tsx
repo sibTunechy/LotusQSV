@@ -8,6 +8,11 @@ import AuditPage from "./pages/AuditPage";
 // import OnboardingPage from "./pages/OnboardingPage";
 // import AuditPage from "./pages/AuditPage";
 // import ApprovalPage from "./pages/ApprovalPage";
+import AccountOpeningStep1 from "./pages/AccountOpeningStep1.tsx";
+import AccountOpeningStep2 from "./pages/AccountOpeningStep2.tsx";
+import AccountOpeningStep3 from "./pages/AccountOpeningStep3.tsx";
+import AccountOpeningStep from "./pages/AccountOpeningStep.tsx";
+import PerformancePage from "./pages/PerformancePage.tsx";
 
 function App() {
     return (
@@ -25,6 +30,11 @@ function App() {
                                 <Route path="/dashboard" element={<DashboardPage />} />
                                 <Route path="/management" element={<UserManagement />} />
                                 <Route path="/audit" element={<AuditPage />} />
+                                <Route path="/account-opening/step-1" element={<AccountOpeningStep1 />} />
+                                <Route path="/account-opening/review/:customerId" element={<AccountOpeningStep2 />} />
+                                <Route path="/account-opening/step-3/:customerId" element={<AccountOpeningStep3 />} />
+                                <Route path="/account-openingstep" element={<AccountOpeningStep/>} /> 
+                                <Route path="/performance" element={<PerformancePage />} />
                             </Routes>
                         </div>
                     </div>
