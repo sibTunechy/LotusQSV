@@ -2,6 +2,8 @@
 "use client"
 
 import { Box, Typography, IconButton } from "@mui/material"
+import ChatNotificationIcon from "@/components/icons/ChatNotificationIcon";
+import UserDIcon from "@/components/icons/UserDIcon";
 import { FiberManualRecord, Chat, Description, People } from "@mui/icons-material"
 
 interface FixedHeaderProps {
@@ -24,7 +26,7 @@ export default function FixedHeader({
                 top: 0,
                 right: 0,
                 left: 280, // Sidebar width - adjust to match your sidebar
-                height: 44,
+                height: 80,
                 bgcolor: "white",
                 borderBottom: "1px solid",
                 borderColor: "grey.200",
@@ -33,7 +35,7 @@ export default function FixedHeader({
                 justifyContent: "space-between",
                 alignItems: "center",
                 px: 3,
-                boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
+               
             }}
         >
             {/* Left side - Last login */}
@@ -41,8 +43,9 @@ export default function FixedHeader({
                 sx={{
                     display: "flex",
                     alignItems: "center",
+                    height: "30px",
                     gap: 1,
-                    bgcolor: "grey.100",
+                    bgcolor: "#F8FAFC",
                     px: 2,
                     py: 1,
                     borderRadius: 2,
@@ -58,12 +61,12 @@ export default function FixedHeader({
                 <FiberManualRecord
                     className="status-dot"
                     sx={{
-                        fontSize: 8,
-                        color: "#1976d2",
+                        fontSize: 12,
+                        color: "#1C219F",
                         transition: "font-size 0.2s ease"
                     }}
                 />
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="#A0AEC0" sx={{fontSize: "13px"}}>
                     Your last login was recorded on: {lastLogin}
                 </Typography>
             </Box>
@@ -72,23 +75,25 @@ export default function FixedHeader({
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                 {showIcons && (
                     <>
-                        <IconButton size="small" sx={{ color: "grey.600" }}>
+                        {/* <IconButton size="small" sx={{ color: "grey.600" }}>
                             <Description />
+                        </IconButton> */}
+                        <IconButton size="small" sx={{ color: "grey.600" }}>
+                            <ChatNotificationIcon />
                         </IconButton>
                         <IconButton size="small" sx={{ color: "grey.600" }}>
-                            <People />
-                        </IconButton>
-                        <IconButton size="small" sx={{ color: "grey.600" }}>
-                            <Chat />
+                            <UserDIcon />
                         </IconButton>
                     </>
                 )}
                 <Typography variant="body2">
-                    <Box component="span" sx={{ color: "text.secondary" }}>
-                        {userName} |{" Super Admin "}
+                    
+                    <Box component="span" sx={{color: "#A0AEC0", fontWeight: "small",}}>
+                        {userName} | {" "}
                     </Box>
-                    <Box component="span" sx={{ fontWeight: "medium" }}>
-                        {userRole}
+                    
+                    <Box component="span" sx={{ fontWeight: "small", }}>
+                         {userRole}
                     </Box>
                 </Typography>
             </Box>

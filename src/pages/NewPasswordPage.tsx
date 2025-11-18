@@ -32,8 +32,11 @@ const NewPasswordPage: React.FC = () => {
         height: "100vh",
         width: "100%",
         backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center",
+        position: "fixed", 
+        top: 0,
+        left: 0,
+        margin: 0,
+        padding: 0,
       }}
     >    
       {/* Left side image */}
@@ -43,9 +46,8 @@ const NewPasswordPage: React.FC = () => {
           height: "100%",
           backgroundImage: "url('/assets/passpng.jpg')",
           backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "top center",
-          display: "flex",
+          backgroundSize: "100% 100%", // Changed from "cover" to "contain"
+          backgroundPosition: "center", // Center the image
           backgroundColor: "#ffffff",
           pt: 6,
           }}
