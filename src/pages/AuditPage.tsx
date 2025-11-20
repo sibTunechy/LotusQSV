@@ -186,7 +186,7 @@ export default function AuditTrailReporting() {
                     width: { xs: "100%", md: `calc(100% - ${drawerWidth}px)` },
                     mt: "60px",
                     px: 4,
-                    py: 6,
+                    py: 13,
                 }}
             >
                 <FixedHeader

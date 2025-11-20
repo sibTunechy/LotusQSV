@@ -394,7 +394,7 @@ export default function UserManagement() {
                     width: { xs: "100%", md: `calc(100% - ${drawerWidth}px)` },
                     mt: "60px",
                     px: 4,
-                    py: 3,
+                    py: 11,
                 }}
             >
                 <FixedHeader

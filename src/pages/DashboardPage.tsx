@@ -89,6 +89,7 @@ const metrics = [
 export default function CorporateBankingDashboard() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedFilter, setSelectedFilter] = useState("Today");
+  const [selectedMetric, setSelectedMetric] = useState<string | null>(null);
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget);
   const handleClose = () => setAnchorEl(null);
@@ -179,7 +180,7 @@ export default function CorporateBankingDashboard() {
                 fontFamily: "Manrope, sans-serif",
                 fontWeight: 700,
                 mb: 0.5,
-                  color: 'black'
+                color: "black",
                 mr: -2,
               }}
             >

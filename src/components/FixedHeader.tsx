@@ -2,10 +2,9 @@
 "use client"
 
 import { Box, Typography, IconButton } from "@mui/material"
-import { FiberManualRecord, Chat,  People } from "@mui/icons-material"
+import { FiberManualRecord } from "@mui/icons-material"
 import ChatNotificationIcon from "@/components/icons/ChatNotificationIcon";
 import UserDIcon from "@/components/icons/UserDIcon";
-import { FiberManualRecord, Chat, Description, People } from "@mui/icons-material"
 
 interface FixedHeaderProps {
     userName?: string
@@ -17,7 +16,7 @@ interface FixedHeaderProps {
 export default function FixedHeader({
                                         userName = "Olalekan Babatunde",
                                         userRole = "Initiator",
-                                        lastLogin = "July 30, 2025 | 12:00PM",
+                                        lastLogin = "Initiator",
                                         showIcons = true
                                     }: FixedHeaderProps) {
     return (
@@ -75,32 +74,26 @@ export default function FixedHeader({
             {/* Right side - Icons and user info */}
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                 {showIcons && (
-                    <>
-                        <IconButton size="small" sx={{ color: "grey.600" }}>
-                            <People />
-                        {/* <IconButton size="small" sx={{ color: "grey.600" }}>
-                            <Description />
-                        </IconButton> */}
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <IconButton size="small" sx={{ color: "grey.600" }}>
                             <ChatNotificationIcon />
                         </IconButton>
                         <IconButton size="small" sx={{ color: "grey.600" }}>
                             <UserDIcon />
                         </IconButton>
-                    </>
-                )}
-                <Typography variant="body2">
-                    <Box component="span" sx={{ color: "text.secondary" }}>
-                        {userName} |{" Initiator "}
-                    
-                    <Box component="span" sx={{color: "#A0AEC0", fontWeight: "small",}}>
-                        {userName} | {" "}
                     </Box>
-                    
-                    <Box component="span" sx={{ fontWeight: "small", }}>
+                )}
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Box component="span" sx={{ color: "text.secondary", mr: 1 }}>
+                        {userName} |
+                    </Box>
+                    <Box component="span" sx={{color: "#A0AEC0", fontSize: "0.85rem", mr: 1}}>
+                        {lastLogin}
+                    </Box>
+                    <Box component="span" sx={{ fontWeight: 600 }}>
                          {userRole}
                     </Box>
-                </Typography>
+                </Box>
             </Box>
         </Box>
     )
