@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-const NewPasswordPage: React.FC = () => {
+const NewPasswordPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ password: "", confirmPassword: "" });
 
@@ -46,8 +46,8 @@ const NewPasswordPage: React.FC = () => {
           height: "100%",
           backgroundImage: "url('/assets/passpng.jpg')",
           backgroundRepeat: "no-repeat",
-          backgroundSize: "100% 100%", // Changed from "cover" to "contain"
-          backgroundPosition: "center", // Center the image
+          backgroundSize: "100% 100%", 
+          backgroundPosition: "center",
           backgroundColor: "#ffffff",
           pt: 6,
           }}

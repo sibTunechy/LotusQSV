@@ -9,9 +9,10 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { FitScreen, Visibility, VisibilityOff } from "@mui/icons-material";
 
-const LoginPage: React.FC = () => {
+const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ username: "", password: "" });
 
@@ -19,9 +20,11 @@ const LoginPage: React.FC = () => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
-
+  
+  const navigate = useNavigate();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    navigate("/dashboard");
     console.log(form);
   };
 
