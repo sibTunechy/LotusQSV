@@ -18,18 +18,16 @@ import {
   Description,
   Logout,
 } from "@mui/icons-material"
-import GridViewIcon from '@mui/icons-material/GridView'
 import CircleConnectionIcon from "@/components/icons/CircleConnectionIcon";
 import UserIcon from "@/components/icons/UserIcon";
 import BookIcon from "@/components/icons/BookIcon";
-import LogoutIcon from "@/components/icons/LogoutIcon";
 import GridIcon from "@/components/icons/GridIcon";
 import { useNavigate, useLocation } from "react-router-dom"
-import MagnifyingGlassIcon from "@/components/icons/MagnifyingGlassIcon";
 
 const drawerWidth = 280
 
 const sidebarItems = [
+
   { text: "Dashboard", icon: GridIcon, route: "/dashboard" },
   { text: "Account Opening", icon: UserIcon, route: "/account-opening/step-1" },
   { text: "Performance", icon: CircleConnectionIcon, route: "/performance" },
@@ -78,13 +76,13 @@ export default function Sidebar() {
                       item.text === "Dashboard"
                         ? "white"
                         : isActive
-                        ? "#4169E1" 
+                        ? "#4169E1"
                         : "transparent",
                     color:
                       item.text === "Dashboard"
                         ? "#1C219F"
                         : isActive
-                        ? "white" 
+                        ? "white"
                         : "white",
                     "&:hover": {
                       bgcolor: "#4169E1",
@@ -92,16 +90,13 @@ export default function Sidebar() {
                     },
                     display: "flex",
                     justifyContent:
-                      item.text === "Dashboard"
-                        ? "space-between"
-                        : "flex-start",
+                      item.text === "Dashboard" ? "space-between" : "flex-start",
                   }}
                 >
                   {item.text === "Dashboard" ? (
                     <>
                       <ListItemText primary={item.text} />
                       <ListItemIcon
-                        component="span"
                         sx={{
                           color: "#1C219F",
                           display: "flex",
@@ -133,7 +128,7 @@ export default function Sidebar() {
       </Box>
 
       {/* Sign Out Button */}
-      <Box sx={{ mt: 4, p: 3, }}>
+      <Box sx={{ mt: 4, p: 3 }}>
         <ListItemButton
           sx={{
             borderRadius: 1,
@@ -142,12 +137,14 @@ export default function Sidebar() {
           }}
           onClick={() => navigate("/")}
         >
-          <LogoutIcon sx={{ color: "red", minWidth: 40, }}>
+          <ListItemIcon sx={{ color: "red", minWidth: 40 }}>
             <Logout />
-          </LogoutIcon>
-          <ListItemText primary={<Typography sx={{ml: 1.5, fontWeight: 600}}>
-            Sign Out
-          </Typography>} />
+          </ListItemIcon>
+          <ListItemText
+            primary={
+              <Typography sx={{ ml: 1.5, fontWeight: 600 }}>Sign Out</Typography>
+            }
+          />
         </ListItemButton>
       </Box>
     </Drawer>
