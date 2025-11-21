@@ -1,5 +1,4 @@
-// AccountOpeningStep1.tsx
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -17,6 +16,7 @@ import {
   TextField,
   InputAdornment,
   Select,
+  Popover,
   MenuItem,
 } from "@mui/material";
 import { Visibility, CalendarToday, ChevronLeft, ChevronRight, MoreHoriz } from "@mui/icons-material";
@@ -159,6 +159,11 @@ export default function AccountOpeningStep1() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
 
+  // Date range state
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
   // Sort state for icon rotation only
   const [sortConfig, setSortConfig] = useState<{ key: string; direction: "asc" | "desc" }>({ key: "", direction: "asc" });
 
@@ -185,13 +190,45 @@ export default function AccountOpeningStep1() {
     }
   };
 
+  // parse timestamp to date obj
+  const parseTimestamp = (timestamp: string): Date => {
+    const [datePart, timePart, period] = timestamp.split(" ");
+    const [month, day, year] = datePart.split("-");
+    const [hours, minutes] = timePart.split(":");
+    
+    let hour24 = parseInt(hours);
+    if (period === "PM" && hour24 !== 12) hour24 += 12;
+    if (period === "AM" && hour24 === 12) hour24 = 0;
+    
+    return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), hour24, parseInt(minutes));
+  };
+
+  // filter data by search, status and date range
   const filteredData = customerAccountRequests
     .filter((row) =>
       row.customerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       row.phoneNumber.includes(searchQuery) ||
       row.accountNumber.toLowerCase().includes(searchQuery.toLowerCase())
     )
-    .filter((row) => (statusFilter === "All" ? true : row.status.toLowerCase() === statusFilter.toLowerCase()));
+    .filter((row) => (statusFilter === "All" ? true : row.status.toLowerCase() === statusFilter.toLowerCase()))
+    .filter((row) => {
+      if (!startDate && !endDate) return true;
+      
+      const rowDate = parseTimestamp(row.timestamp);
+      const start = startDate ? new Date(startDate) : null;
+      const end = endDate ? new Date(endDate) : null;
+      
+      if (start && end) {
+        end.setHours(23, 59, 59, 999); // Include the entire end date
+        return rowDate >= start && rowDate <= end;
+      }
+      if (start) return rowDate >= start;
+      if (end) {
+        end.setHours(23, 59, 59, 999);
+        return rowDate <= end;
+      }
+      return true;
+    });
 
   const handleReviewClick = (customerId: number) => {
     navigate(`/account-opening/review/${customerId}`);
@@ -204,6 +241,48 @@ export default function AccountOpeningStep1() {
     }));
   };
 
+  // Calendar popover handlers
+  const handleCalendarClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCalendarClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleApplyDateFilter = () => {
+    setPage(0); // Reset to first page when filtering
+    handleCalendarClose();
+  };
+
+  const handleClearDateFilter = () => {
+    setStartDate("");
+    setEndDate("");
+    setPage(0);
+    handleCalendarClose();
+  };
+
+  const open = Boolean(anchorEl);
+
+  // Format date for display
+  // const formatDateDisplay = () => {
+  //   if (!startDate && !endDate) return "Select Date Range";
+  //   if (startDate && endDate) {
+  //     const start = new Date(startDate).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+  //     const end = new Date(endDate).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+  //     return `${start} - ${end}`;
+  //   }
+  //   if (startDate) {
+  //     const start = new Date(startDate).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+  //     return `From ${start}`;
+  //   }
+  //   if (endDate) {
+  //     const end = new Date(endDate).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+  //     return `Until ${end}`;
+  //   }
+  //   return "Select Date Range";
+  // };
+
   return (
     <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "grey.50" }}>
       <Sidebar />
@@ -212,8 +291,11 @@ export default function AccountOpeningStep1() {
       <Box component="main" sx={{ flexGrow: 1, mt: "64px", p: 2, width: { xs: "100%", md: `calc(100vw - ${drawerWidth}px)` } }}>
         {/* Page Header */}
         <Box sx={{ mb: 4, bgcolor: "white", borderRadius: 4, height: "80px", width: "100%", mr: 3 }}>
-          <Typography variant="h5" fontWeight="bold" sx={{ mb: 1, mt: 1.5, ml: 2, pt: 1 }}>Account Opening</Typography>
-          <Typography variant="body1" color="text.secondary" sx={{ fontSize: "15px", ml: 2 }}>
+          <Typography variant="h5" fontWeight="bold" sx={{ mb: 1, mt: 1.5, ml: 2, pt: 1,  fontFamily: "Manrope, sans-serif",
+                fontWeight: 700, fontSize: "23px",
+                lineHeight: "130%",
+                color: "#111827",}}>Account Opening</Typography>
+          <Typography variant="body1" color="#A0AEC0" sx={{ fontFamily: "Manrope, sans-serif", fontWeight: "500",  fontSize: "15px", ml: 2 }}>
             Easily track and process RMs Account Opening Operations
           </Typography>
         </Box>
@@ -253,13 +335,103 @@ export default function AccountOpeningStep1() {
               <Button
                 variant="outlined"
                 endIcon={<CalendarOutlinedIcon />}
-                sx={{ borderColor: "#E5E7EB", display: "flex", flexDirection: "space-between", color: "text.primary", textTransform: "none", width: "320px", borderRadius: "8px", height: "55px", px: 3, bgcolor: "white", "&:hover": { borderColor: "#D1D5DB", bgcolor: "#F9FAFB",},"& .MuiButton-endIcon": {
-                      ml: 5.5,
-                    }, 
-                  }}
+                onClick={handleCalendarClick}
+                sx={{
+                  borderColor: "#E5E7EB",
+                  display: "flex",
+                  color: "text.primary",
+                  flexDirection: "space-between",
+                  // color: startDate || endDate ? "#111827" : "text.primary",
+                  textTransform: "none",
+                  width: "320px",
+                  borderRadius: "8px",
+                  height: "55px",
+                  // fontWeight: "bold",
+                  fontSize: "15px",
+                  px: 3,
+                  bgcolor: "white",
+                  "&:hover": { borderColor: "#D1D5DB", bgcolor: "#F9FAFB" },
+                  "& .MuiButton-endIcon": {
+                    ml: 5.5,
+                  },
+                }}
               >
-                01 Oct. 2025 - 10 Oct. 2025
+                01 Oct. 2025 - 10 Oct 2025
               </Button>
+
+              {/* Date Range Popover */}
+              <Popover
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleCalendarClose}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                sx={{ mt: 1 }}
+              >
+                <Box sx={{ p: 3, width: 350 }}>
+                  <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                    Select Date Range
+                  </Typography>
+                  
+                  <Box sx={{ mb: 2 }}>
+                    <Typography variant="body2" sx={{ mb: 1, color: "#687588", fontWeight: 500 }}>
+                      Start Date
+                    </Typography>
+                    <TextField
+                      type="date"
+                      fullWidth
+                      value={startDate}
+                      onChange={(e) => setStartDate(e.target.value)}
+                      InputLabelProps={{ shrink: true }}
+                      sx={{ "& .MuiOutlinedInput-root": { borderRadius: "8px" } }}
+                    />
+                  </Box>
+
+                  <Box sx={{ mb: 3 }}>
+                    <Typography variant="body2" sx={{ mb: 1, color: "#687588", fontWeight: 500 }}>
+                      End Date
+                    </Typography>
+                    <TextField
+                      type="date"
+                      fullWidth
+                      value={endDate}
+                      onChange={(e) => setEndDate(e.target.value)}
+                      InputLabelProps={{ shrink: true }}
+                      sx={{ "& .MuiOutlinedInput-root": { borderRadius: "8px" } }}
+                    />
+                  </Box>
+
+                  <Box sx={{ display: "flex", gap: 2 }}>
+                    <Button
+                      fullWidth
+                      variant="outlined"
+                      onClick={handleClearDateFilter}
+                      sx={{ textTransform: "none", borderRadius: "8px" }}
+                    >
+                      Clear
+                    </Button>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      onClick={handleApplyDateFilter}
+                      sx={{
+                        textTransform: "none",
+                        bgcolor: "#00CECE",
+                        "&:hover": { bgcolor: "#00b8b8" },
+                        borderRadius: "8px",
+                      }}
+                    >
+                      Apply
+                    </Button>
+                  </Box>
+                </Box>
+              </Popover>
             </Box>
           </Box>
 

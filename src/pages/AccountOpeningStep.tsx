@@ -153,29 +153,35 @@ export default function AccountOpeningStep() {
                 }}
             >
                 {/* Page Header */}
-                <Box sx={{ height: "50px", borderRadius: 4, display: "flex", justifyContent: "space-between", alignItems: "center", pb: 3 ,bgcolor: "white", }}>
-                    <Box sx={{mt: 2}}>
-                        <Typography variant="h5" fontWeight="bold" sx={{ mb: 0.5, color: "#1a1a1a", ml: 2 }}>
+                <Box sx={{ height: "60px", borderRadius: 4, display: "flex", justifyContent: "space-between", alignItems: "center", pb: 3 ,bgcolor: "white", }}>
+                    <Box sx={{mt: 2, ml: 2}}>
+                        <Typography variant="h5" fontWeight="bold" sx={{ fontFamily: "Manrope, sans-serif",
+                fontWeight: 700, mb: 0.5, fontSize: "23px",
+                lineHeight: "130%", color: "#111827" }}>
                             Account Opening
                         </Typography>
-                        <Typography variant="body2" color="text.secondary" sx={{ml: 2}}>
+                        <Typography variant="body1" color="#A0AEC0" sx={{ fontFamily: "Manrope, sans-serif", fontSize: "15px", fontWeight: "500" }} >
                             Easily track and process RMs Account Opening Operation
                         </Typography>
-                    </Box>
+                    </Box>    
                     <Button
                         variant="contained"
                         startIcon={<AddIcon/>}
                         sx={{
-                            
+                            height: "48px",
+                            width: "206px",
                             bgcolor: "#00CECE",
                             "&:hover": { bgcolor: "#00B8B8" },
                             textTransform: "none",
-                            borderRadius: "8px",
+                            fontSize: 16,
+                            borderRadius: "12px",
+                            letterSpacing: "0.8px",
+                            boxShadow: "none",
                             px: 3,
                             py: 1,
                             mt: 2,
                             mr: 2,
-                            fontWeight: "600",
+                            fontWeight: "500",
                         }}
                     >
                         Export Form

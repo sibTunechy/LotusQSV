@@ -1,18 +1,14 @@
 import { Routes, Route } from "react-router-dom";
-import LoginPage from "./pages/LoginPage.tsx";
-import NewPasswordPage from "./pages/NewPasswordPage.tsx";
-import DashboardPage from "./pages/DashboardPage.tsx";
+import LoginPage from "./pages/LoginPage";
+import NewPasswordPage from "./pages/NewPasswordPage";
+import DashboardPage from "./pages/DashboardPage";
 import UserManagement from "@/pages/UserManagement";
 import AuditPage from "./pages/AuditPage";
-// import ManagementPage from "./pages/ManagementPage.tsx";
-// import OnboardingPage from "./pages/OnboardingPage";
-// import AuditPage from "./pages/AuditPage";
-// import ApprovalPage from "./pages/ApprovalPage";
-import AccountOpeningStep1 from "./pages/AccountOpeningStep1.tsx";
-import AccountOpeningStep2 from "./pages/AccountOpeningStep2.tsx";
-import AccountOpeningStep3 from "./pages/AccountOpeningStep3.tsx";
-import AccountOpeningStep from "./pages/AccountOpeningStep.tsx";
-import PerformancePage from "./pages/PerformancePage.tsx";
+import AccountOpeningStep1 from "./pages/AccountOpeningStep1";
+import AccountOpeningStep2 from "./pages/AccountOpeningStep2";
+import AccountOpeningStep3 from "./pages/AccountOpeningStep3";
+import AccountOpeningStep from "./pages/AccountOpeningStep";
+import PerformancePage from "./pages/PerformancePage";
 
 function App() {
     return (

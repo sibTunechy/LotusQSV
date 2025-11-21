@@ -11,13 +11,12 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import TrendingUp from "@mui/icons-material/TrendingUp";
 import TrendingDown from "@mui/icons-material/TrendingDown";
-import RotateIcon from "@/components/icons/RotateIcon.tsx";
+import RotateIcon from "@/components/icons/RotateIcon";
 import trophyIcon from "/assets/award.png";
 
 import Sidebar, { drawerWidth } from "@/components/Sidebar";
@@ -33,6 +32,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import ChevronDownIcon from "@/components/icons/ChevronDownIcon";
 
 const accountOpeningData = [
   { month: "Jul", amount: 10500 },
@@ -147,9 +147,9 @@ export default function CorporateBankingDashboard() {
           flexGrow: 1,
           width: { xs: "100%", md: `calc(100% - ${drawerWidth}px)` },
           mt: "60px",
-          px: 4,
-          py: 3,
-          pr: 2,
+          px: 2,
+          py: 1,
+          pr: 1,
         }}
       >
         {/* Fixed Header */}
@@ -169,18 +169,20 @@ export default function CorporateBankingDashboard() {
             mt: 2,           
             bgcolor: "white",
             borderRadius: "8px",
+            backgroundColor: "#fff",
             height: "100px",
             width: "78vw",
           }}
         >
           <Box sx={{ml: 2}}>
             <Typography
-              variant="h5"
               sx={{
                 fontFamily: "Manrope, sans-serif",
                 fontWeight: 700,
                 mb: 0.5,
-                color: "black",
+                fontSize: "23px",
+                lineHeight: "130%",
+                color: "#111827",
                 mr: -2,
               }}
             >
@@ -188,8 +190,8 @@ export default function CorporateBankingDashboard() {
             </Typography>
             <Typography
               variant="body1"
-              color="text.secondary"
-              sx={{ fontFamily: "Manrope, sans-serif" }}
+              color="#A0AEC0"
+              sx={{ fontFamily: "Manrope, sans-serif", fontSize: "15px", fontWeight: "500" }}
             >
               Real-time monitoring and management of account opening operations
             </Typography>
@@ -197,7 +199,7 @@ export default function CorporateBankingDashboard() {
 
           <Button
             variant="contained"
-            endIcon={<ExpandMoreOutlinedIcon />}
+            endIcon={<ChevronDownIcon />}
             onClick={handleClick}
             sx={{
               bgcolor: "#00CECE",
@@ -205,9 +207,13 @@ export default function CorporateBankingDashboard() {
               fontWeight: 500,
               fontSize: 16,
               borderRadius: "12px",
+              letterSpacing: "0.8px",
+              boxShadow: "none",
               px: 3,
               py: 1.5,
               mr: 2,
+              height: "48px",
+              width: "206px",
               "&:hover": { bgcolor: "#00BFBF" },
             }}
           >

@@ -29,6 +29,8 @@ import {
 } from "@mui/icons-material";
 import Sidebar, { drawerWidth } from "../components/Sidebar";
 import FixedHeader from "../components/FixedHeader";
+import ChevronDownIcon from "@/components/icons/ChevronDownIcon";
+import ExportIcon from "@/components/icons/ExportIcon";
 
 // Dummy performance data - 20 entries for pagination
 const performanceData = [
@@ -135,34 +137,41 @@ export default function PerformancePage() {
                 sx={{
                     flexGrow: 1,
                     mt: "64px",
-                    p: 4,
+                    p: 2,
                     width: { xs: "100%", md: `calc(100vw - ${drawerWidth}px)` },
                 }}
             >
                 {/* Page Header */}
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", bgcolor: "white", borderRadius: 4, mb: 3, height: "90px", }}>
                     <Box>
-                        <Typography variant="h5" fontWeight="bold" sx={{ mb: 0.5, color: "#1a1a1a", ml:1.5 }}>
+                        <Typography variant="h5" sx={{ fontFamily: "Manrope, sans-serif",
+                fontWeight: 700,  mb: 0.5, fontSize: "23px",
+                lineHeight: "130%",
+                color: "#111827", ml:1.5 }}>
                             Performance
                         </Typography>
-                        <Typography variant="body2" color="text.secondary" sx={{ml: 1.5}}>
+                        <Typography variant="body1" color="#A0AEC0" sx={{ fontWeight: "500", fontFamily: "Manrope, sans-serif", fontSize: "15px", ml: 1.5}}>
                             Easily track and process RMs Account Opening Operation
                         </Typography>
                     </Box>
                     <Button
                         variant="contained"
-                        startIcon={<FileDownload />}
-                        endIcon={<KeyboardArrowDown />}
+                        startIcon={<ExportIcon />}
+                        endIcon={<ChevronDownIcon />}
                         onClick={handleExportClick}
                         sx={{
                             bgcolor: "#00CECE",
                             "&:hover": { bgcolor: "#00B8B8" },
                             textTransform: "none",
-                            borderRadius: "8px",
+                            borderRadius: "12px",
+                            boxShadow: "none",
                             px: 3,
                             py: 1,
-                            fontWeight: "600",
+                            fontSize: 16,
+                            fontWeight: "500",
                             mr: 1.8,
+                            height: "48px",
+                            width: "228px",
                         }}
                     >
                         Export Report
